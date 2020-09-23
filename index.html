@@ -14,7 +14,7 @@
     <body>
       <h1>Anime Project</h1>
 
-      <p id="sign-up-message"></p>
+
       <section>
     <p id="sign-up-message"></p>
 <form id="sign-up-form" class="border">
@@ -54,9 +54,51 @@
         </fieldset>
       </form>
 
-<p id="sign-out-message"></p>
+
 <form id="sign-out">
   <input type="submit" value="Sign Out">
 </form>
+
+ <button id="show-anime">show</button>
+
+<p id="add-anime-message"></p>
+<form id="add-anime-form" class="border">
+<fieldset>
+<div class="legend"><legend>Add Anime!</legend></div>
+<label for="anime-name">Name</label>
+<input id="anime-name" type="text" name="anime[title]" placeholder="Name">
+<label for="anime-translation">Translation</label>
+<input id="anime-translation" type="text" name="anime[translation]" placeholder="Translation">
+<label for="anime-genre">Genres</label>
+<input id="anime-genre" type="text" name="anime[genre]" placeholder="..., ..., ...">
+<label for="anime-episodes">Episodes</label>
+<input id="anime-episodes" type="number" name="anime[episodes]" placeholder="###">
+<input type="submit" value="Add Anime!">
+</fieldset>
+</form>
+
+<p id="delete-anime-message"></p>
+<form id="delete-anime-form" class="border">
+<fieldset>
+<div class="legend"><legend>ID#</legend></div>
+<label for="delete-anime"></label>
+<input id="delete-anime" type="number" name="anime[id]" placeholder="#########">
+<input type="submit" value="Remove!">
+</fieldset>
+
+<p id="edit-anime-message"></p>
+<form id="edit-anime-form" class="border">
+<fieldset>
+<div class="legend"><legend>Edit Anime!</legend></div>
+<label for="edit-anime"></label>
+<input id="edit-anime" type="text" name="anime[id]" placeholder="#########">
+<!-- <label for="password">Password</label>
+<input id="password" type="password" name="credentials[password]" placeholder="Password"> -->
+<input type="submit" value="Update!">
+</fieldset>
+</form>
+</form>
+
+</section>
     </body>
 </html>
