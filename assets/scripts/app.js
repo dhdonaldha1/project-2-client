@@ -19,5 +19,5 @@ $(() => {
   $('#sign-out').on('submit', authEvents.onSignOut)
   $('#add-anime-form').on('submit', authEvents.onAddAnime)
   $('#delete-anime-form').on('submit', authEvents.onDeleteAnime)
-  $('#show-anime').on('click', authEvents.onShowAnime)
+  $('#show-anime').on('submit', authEvents.onShowAnime)
 })

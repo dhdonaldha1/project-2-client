@@ -58,10 +58,10 @@ console.log(data)
 }
 const onShowAnime = function (event) {
   event.preventDefault()
-  const form = event.target
-  const data = getFormFields(form)
-console.log(data)
-  api.showAnime(data)
+  // const form = event.target
+  // const data = getFormFields(form)
+console.log()
+  api.showAnime()
     .then(ui.onShowAnimeSuccess)
     .catch(ui.onShowAnimeFailure)
 }

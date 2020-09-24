@@ -54,23 +54,27 @@
         </fieldset>
       </form>
 
-
+<p id="sign-out-message"></p>
 <form id="sign-out">
   <input type="submit" value="Sign Out">
 </form>
 
- <button id="show-anime">show</button>
+ <!-- <button id="show-anime">show</button> -->
+<p id="show-anime-message"></p>
+<form id="show-anime">
+<input type="submit" value="View all anime">
+</form>
 
 <p id="add-anime-message"></p>
 <form id="add-anime-form" class="border">
 <fieldset>
 <div class="legend"><legend>Add Anime!</legend></div>
 <label for="anime-name">Name</label>
-<input id="anime-name" type="text" name="anime[title]" placeholder="Name">
+<input id="anime-name" type="text" name="anime[title]" placeholder="Name"><br>
 <label for="anime-translation">Translation</label>
-<input id="anime-translation" type="text" name="anime[translation]" placeholder="Translation">
+<input id="anime-translation" type="text" name="anime[translation]" placeholder="Translation"><br>
 <label for="anime-genre">Genres</label>
-<input id="anime-genre" type="text" name="anime[genre]" placeholder="..., ..., ...">
+<input id="anime-genre" type="text" name="anime[genre]" placeholder="..., ..., ..."><br>
 <label for="anime-episodes">Episodes</label>
 <input id="anime-episodes" type="number" name="anime[episodes]" placeholder="###">
 <input type="submit" value="Add Anime!">
@@ -90,10 +94,16 @@
 <form id="edit-anime-form" class="border">
 <fieldset>
 <div class="legend"><legend>Edit Anime!</legend></div>
-<label for="edit-anime"></label>
-<input id="edit-anime" type="text" name="anime[id]" placeholder="#########">
-<!-- <label for="password">Password</label>
-<input id="password" type="password" name="credentials[password]" placeholder="Password"> -->
+<label for="index-anime"></label>
+<input id="index-anime" type="number" name="anime[id]" placeholder="#########"><br>
+<label for="new-anime-name">Name</label>
+<input id="new-anime-name" type="text" name="anime[title]" placeholder="Name"><br>
+<label for="new-anime-translation">Translation</label>
+<input id="new-anime-translation" type="text" name="anime[translation]" placeholder="Translation"><br>
+<label for="new-anime-genre">Genres</label>
+<input id="new-anime-genre" type="text" name="anime[genre]" placeholder="..., ..., ..."><br>
+<label for="new-anime-episodes">Episodes</label>
+<input id="new-anime-episodes" type="number" name="anime[episodes]" placeholder="###">
 <input type="submit" value="Update!">
 </fieldset>
 </form>

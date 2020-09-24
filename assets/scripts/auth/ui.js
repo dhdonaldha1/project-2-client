@@ -33,13 +33,18 @@ const onChangePasswordFailure = function(error) {
 }
 const onSignOutSuccess = function(response) {
 console.log('signed out')
+  $('#sign-out-message').text('Signed out, Please sign in again!')
   $('#sign-out-form').trigger('reset')
   $('#change-password').hide()
   $('#sign-up-form').show()
   $('#sign-in-form').show()
   $('#sign-in-message').hide()
   $('#sign-up-message').hide()
+  $('#sign-out').hide()
   $('#change-password-message').hide()
+  $('#add-anime-form').hide()
+  $('#delete-anime-form').hide()
+  $('#show-anime').hide()
 
 }
 const onSignOutFailure = function(error) {
@@ -60,6 +65,13 @@ const onDeleteAnimeSuccess = function(response) {
 const onDeleteAnimeFailure = function(error) {
   $('#delete-anime-message').text('Failed to remove from list, please try again!')
 }
+const onShowAnimeSuccess = function(response) {
+  $('#show-anime-message').text('Here is a list of all your anime')
+  $('#show-anime').trigger('reset')
+}
+const onShowAnimeFailure = function(error) {
+  $('#show-anime-message').text('Failed to get all anime!')
+}
 
 module.exports = {
   onSignUpSuccess,
@@ -71,5 +83,7 @@ module.exports = {
   onSignOutSuccess,
   onSignOutFailure,
   onAddAnimeSuccess,
-  onAddAnimeFailure
+  onAddAnimeFailure,
+  onShowAnimeSuccess,
+  onShowAnimeFailure
 }
