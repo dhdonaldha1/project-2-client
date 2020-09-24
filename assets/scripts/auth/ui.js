@@ -59,15 +59,31 @@ const onAddAnimeFailure = function(error) {
   $('#add-anime-message').text('Failed to add to list, please try again!')
 }
 const onDeleteAnimeSuccess = function(response) {
+  console.log(response)
   $('#delete-anime-message').text('Successfully removed anime from list!')
   $('#delete-anime').trigger('reset')
 }
 const onDeleteAnimeFailure = function(error) {
+  console.log(response)
   $('#delete-anime-message').text('Failed to remove from list, please try again!')
 }
 const onShowAnimeSuccess = function(response) {
+  console.log(response)
+  // var collection = document.getElementById('show-collection');
+  // collection.innerHTML = response.animes;
+  var arr = response.animes
+  var myString = JSON.stringify(arr);
+document.getElementById("show-collection").innerHTML = myString;
   $('#show-anime-message').text('Here is a list of all your anime')
   $('#show-anime').trigger('reset')
+  // const animeList=response.animes
+  // for(let i = 0; i < animeList.length; i++){
+  //   console.log(animeList[i])}
+//   const animeList = response.animes
+//   let collection = ''
+//   collection += `$('.show-collection').html(response.animes)
+//   `
+//
 }
 const onShowAnimeFailure = function(error) {
   $('#show-anime-message').text('Failed to get all anime!')

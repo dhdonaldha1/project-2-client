@@ -42,7 +42,7 @@ const addAnime = function (data) {
 }
 const deleteAnime = function (data) {
   return $.ajax({
-    url: config.apiUrl + '/anime:ID',
+    url: config.apiUrl + '/animes/:ID',
     method: "DELETE",
     headers: {Authorization: 'Bearer ' + store.user.token},
     data: data
