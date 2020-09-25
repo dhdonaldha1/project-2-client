@@ -40,12 +40,11 @@ const addAnime = function (data) {
     data: data
   })
 }
-const deleteAnime = function (data) {
+const deleteAnime = function (animeId) {
   return $.ajax({
-    url: config.apiUrl + '/animes/:ID',
+    url: config.apiUrl + `/animes/${animeId}`,
     method: "DELETE",
-    headers: {Authorization: 'Bearer ' + store.user.token},
-    data: data
+    headers: {Authorization: 'Bearer ' + store.user.token}
   })
 }
 const showAnime = function (data) {
@@ -56,7 +55,14 @@ const showAnime = function (data) {
     data: data
   })
 }
-
+const updateAnime = function (data) {
+  return $.ajax({
+    url: config.apiUrl + `/animes/${data.anime.id}`,
+    method: "PATCH",
+    headers: {Authorization: 'Bearer ' + store.user.token},
+    data: data
+  })
+}
 module.exports = {
   signUp: signUp,
   signIn: signIn,
@@ -64,5 +70,6 @@ module.exports = {
   signOut: signOut,
   addAnime: addAnime,
   deleteAnime: deleteAnime,
-  showAnime: showAnime
+  showAnime: showAnime,
+  updateAnime: updateAnime
 }

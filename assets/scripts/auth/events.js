@@ -51,8 +51,8 @@ const onDeleteAnime = function (event) {
   event.preventDefault()
   const form = event.target
   const data = getFormFields(form)
-console.log(data)
-  api.deleteAnime(data)
+console.log(data.anime.id)
+  api.deleteAnime(data.anime.id)
     .then(ui.onDeleteAnimeSuccess)
     .catch(ui.onDeleteAnimeFailure)
 }
@@ -65,6 +65,16 @@ console.log()
     .then(ui.onShowAnimeSuccess)
     .catch(ui.onShowAnimeFailure)
 }
+const onUpdateAnime = function (event) {
+  event.preventDefault()
+  const form = event.target
+  const data = getFormFields(form)
+console.log(data)
+  // const anime = data.anime
+  api.updateAnime(data)
+    .then(ui.onUpdateAnimeSuccess)
+    .catch(ui.onUpdateAnimeFailure)
+}
 
 module.exports ={
   onSignUp: onSignUp,
@@ -74,4 +84,5 @@ module.exports ={
   onAddAnime: onAddAnime,
   onDeleteAnime: onDeleteAnime,
   onShowAnime: onShowAnime,
+  onUpdateAnime: onUpdateAnime
 }

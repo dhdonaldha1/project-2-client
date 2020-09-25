@@ -4,6 +4,7 @@ const onSignUpSuccess = function(response) {
 console.log('YESSSS')
   $('#sign-up-message').text('Thanks for signing up ' + response.user.email)
 $('#sign-up-form').trigger('reset')
+$('#sign-up-message').show()
 }
 const onSignUpFailure = function(error) {
   console.log('oops')
@@ -14,15 +15,21 @@ console.log('SIGNED IN')
 store.user = response.user
   $('#sign-in-message').text('Thanks for signing in ' + response.user.email)
   $('#sign-in-form').trigger('reset')
+  $('#sign-up-message').hide()
   $('#change-password').show()
   $('#sign-out').show()
   $('#add-anime-form').show()
   $('#delete-anime-form').show()
   $('#show-anime').show()
+  $('#edit-anime-form').show()
+  $('#sign-up-form').hide()
+  $('#sign-out-message').hide()
+  $('#sign-in-form').hide()
 }
 const onSignInFailure = function(error) {
   console.log('failed sign in try again')
-  $('#sign-in-message').text('Sign up failed try again')
+  $('#sign-in-message').show()
+  $('#sign-in-message').text('Sign in failed try again')
 }
 const onChangePasswordSuccess = function(response) {
   $('#change-password-message').text('Password changed!!')
@@ -45,6 +52,8 @@ console.log('signed out')
   $('#add-anime-form').hide()
   $('#delete-anime-form').hide()
   $('#show-anime').hide()
+  $('#sign-up-form').show()
+  $('#edit-anime-form').hide()
 
 }
 const onSignOutFailure = function(error) {
@@ -53,7 +62,7 @@ const onSignOutFailure = function(error) {
 }
 const onAddAnimeSuccess = function(response) {
   $('#add-anime-message').text('Successfully added to anime list!')
-  $('#add-anime').trigger('reset')
+  $('#add-anime-form').trigger('reset')
 }
 const onAddAnimeFailure = function(error) {
   $('#add-anime-message').text('Failed to add to list, please try again!')
@@ -88,6 +97,12 @@ document.getElementById("show-collection").innerHTML = myString;
 const onShowAnimeFailure = function(error) {
   $('#show-anime-message').text('Failed to get all anime!')
 }
+const onUpdateAnimeSuccess = function(response) {
+
+}
+const onUpdateAnimeFailure = function(error) {
+  
+}
 
 module.exports = {
   onSignUpSuccess,
@@ -101,5 +116,9 @@ module.exports = {
   onAddAnimeSuccess,
   onAddAnimeFailure,
   onShowAnimeSuccess,
-  onShowAnimeFailure
+  onShowAnimeFailure,
+  onDeleteAnimeSuccess,
+  onDeleteAnimeFailure,
+  onUpdateAnimeSuccess,
+  onUpdateAnimeFailure
 }

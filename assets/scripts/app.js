@@ -12,7 +12,7 @@ $(() => {
   $('#add-anime-form').hide()
   $('#delete-anime-form').hide()
   $('#show-anime').hide()
-
+  $('#edit-anime-form').hide()
   $('#sign-up-form').on('submit', authEvents.onSignUp)
   $('#sign-in-form').on('submit', authEvents.onSignIn)
   $('#change-password').on('submit', authEvents.onChangePassword)
@@ -20,4 +20,5 @@ $(() => {
   $('#add-anime-form').on('submit', authEvents.onAddAnime)
   $('#delete-anime-form').on('submit', authEvents.onDeleteAnime)
   $('#show-anime').on('submit', authEvents.onShowAnime)
+  $('#edit-anime-form').on('submit', authEvents.onUpdateAnime)
 })
