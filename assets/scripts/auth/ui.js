@@ -1,17 +1,14 @@
 const store =require ('./../store')
 
 const onSignUpSuccess = function(response) {
-console.log('YESSSS')
   $('#sign-up-message').text('Thanks for signing up ' + response.user.email)
 $('#sign-up-form').trigger('reset')
 $('#sign-up-message').show()
 }
 const onSignUpFailure = function(error) {
-  console.log('oops')
   $('#sign-up-message').text('Sign up failed try again')
 }
 const onSignInSuccess = function(response) {
-console.log('SIGNED IN')
 store.user = response.user
   $('#sign-in-message').text('Thanks for signing in ' + response.user.email)
   $('#sign-in-form').trigger('reset')
@@ -27,7 +24,6 @@ store.user = response.user
   $('#sign-in-form').hide()
 }
 const onSignInFailure = function(error) {
-  console.log('failed sign in try again')
   $('#sign-in-message').show()
   $('#sign-in-message').text('Sign in failed try again')
 }
@@ -39,7 +35,6 @@ const onChangePasswordFailure = function(error) {
   $('#change-password-message').text('Password change failed try again!')
 }
 const onSignOutSuccess = function(response) {
-console.log('signed out')
   $('#sign-out-message').text('Signed out, Please sign in again!')
   $('#sign-out-form').trigger('reset')
   $('#change-password').hide()
@@ -54,11 +49,12 @@ console.log('signed out')
   $('#show-anime').hide()
   $('#sign-up-form').show()
   $('#edit-anime-form').hide()
+  $('#show-anime-message').hide()
+  $('#add-anime-message').hide()
+  $('#delete-anime-message').hide()
 
 }
 const onSignOutFailure = function(error) {
-  console.log('not signed out')
-
 }
 const onAddAnimeSuccess = function(response) {
   $('#add-anime-message').text('Successfully added to anime list!')
@@ -68,40 +64,51 @@ const onAddAnimeFailure = function(error) {
   $('#add-anime-message').text('Failed to add to list, please try again!')
 }
 const onDeleteAnimeSuccess = function(response) {
-  console.log(response)
   $('#delete-anime-message').text('Successfully removed anime from list!')
-  $('#delete-anime').trigger('reset')
+  $('#delete-anime-form').trigger('reset')
 }
 const onDeleteAnimeFailure = function(error) {
-  console.log(response)
   $('#delete-anime-message').text('Failed to remove from list, please try again!')
 }
 const onShowAnimeSuccess = function(response) {
-  console.log(response)
-  // var collection = document.getElementById('show-collection');
-  // collection.innerHTML = response.animes;
-  var arr = response.animes
-  var myString = JSON.stringify(arr);
-document.getElementById("show-collection").innerHTML = myString;
+//   var arr = response.animes
+//   var myString = JSON.stringify(arr);
+// document.getElementById("show-collection").innerHTML = myString;
+const animes = response.animes
+let htmlStr = ''
+animes.forEach((anime) => {
+
+  const animeHTML = (`
+    <div>
+      <h3>${anime.title}</h3>
+      <ul>
+        <li>ID: ${anime._id}</li>
+        <li>Title: ${anime.title}</li>
+        <li>Translation: ${anime.translation}</li>
+        <li>${anime.genre}</li>
+        <li>${anime.episodes}</li>
+      </ul>
+    </div>
+  `)
+
+  htmlStr += animeHTML
+})
+
+$('#some-div').html(htmlStr)
   $('#show-anime-message').text('Here is a list of all your anime')
   $('#show-anime').trigger('reset')
-  // const animeList=response.animes
-  // for(let i = 0; i < animeList.length; i++){
-  //   console.log(animeList[i])}
-//   const animeList = response.animes
-//   let collection = ''
-//   collection += `$('.show-collection').html(response.animes)
-//   `
-//
+
+
 }
 const onShowAnimeFailure = function(error) {
   $('#show-anime-message').text('Failed to get all anime!')
 }
 const onUpdateAnimeSuccess = function(response) {
-
+  $('#edit-anime-message').text('Anime successfully updated!')
+  $('#edit-anime-form').trigger('reset')
 }
 const onUpdateAnimeFailure = function(error) {
-  
+$('#edit-anime-message').text('Anime failed to update.')
 }
 
 module.exports = {
