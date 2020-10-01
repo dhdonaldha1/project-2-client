@@ -16513,7 +16513,7 @@ $(function () {
   $('#add-anime-form').hide();
   $('#delete-anime-form').hide();
   $('#show-anime').hide();
-
+  $('#edit-anime-form').hide();
   $('#sign-up-form').on('submit', authEvents.onSignUp);
   $('#sign-in-form').on('submit', authEvents.onSignIn);
   $('#change-password').on('submit', authEvents.onChangePassword);
@@ -16521,6 +16521,7 @@ $(function () {
   $('#add-anime-form').on('submit', authEvents.onAddAnime);
   $('#delete-anime-form').on('submit', authEvents.onDeleteAnime);
   $('#show-anime').on('submit', authEvents.onShowAnime);
+  $('#edit-anime-form').on('submit', authEvents.onUpdateAnime);
 });
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(47)))
 
@@ -16574,8 +16575,8 @@ var onDeleteAnime = function onDeleteAnime(event) {
   event.preventDefault();
   var form = event.target;
   var data = getFormFields(form);
-  console.log(data);
-  api.deleteAnime(data).then(ui.onDeleteAnimeSuccess).catch(ui.onDeleteAnimeFailure);
+  console.log(data.anime.id);
+  api.deleteAnime(data.anime.id).then(ui.onDeleteAnimeSuccess).catch(ui.onDeleteAnimeFailure);
 };
 var onShowAnime = function onShowAnime(event) {
   event.preventDefault();
@@ -16583,6 +16584,14 @@ var onShowAnime = function onShowAnime(event) {
   // const data = getFormFields(form)
   console.log();
   api.showAnime().then(ui.onShowAnimeSuccess).catch(ui.onShowAnimeFailure);
+};
+var onUpdateAnime = function onUpdateAnime(event) {
+  event.preventDefault();
+  var form = event.target;
+  var data = getFormFields(form);
+  console.log(data);
+  // const anime = data.anime
+  api.updateAnime(data).then(ui.onUpdateAnimeSuccess).catch(ui.onUpdateAnimeFailure);
 };
 
 module.exports = {
@@ -16592,7 +16601,8 @@ module.exports = {
   onSignOut: onSignOut,
   onAddAnime: onAddAnime,
   onDeleteAnime: onDeleteAnime,
-  onShowAnime: onShowAnime
+  onShowAnime: onShowAnime,
+  onUpdateAnime: onUpdateAnime
 };
 
 /***/ }),
@@ -16726,12 +16736,11 @@ var addAnime = function addAnime(data) {
     data: data
   });
 };
-var deleteAnime = function deleteAnime(data) {
+var deleteAnime = function deleteAnime(animeId) {
   return $.ajax({
-    url: config.apiUrl + '/anime:ID',
+    url: config.apiUrl + ('/animes/' + animeId),
     method: "DELETE",
-    headers: { Authorization: 'Bearer ' + store.user.token },
-    data: data
+    headers: { Authorization: 'Bearer ' + store.user.token }
   });
 };
 var showAnime = function showAnime(data) {
@@ -16742,7 +16751,14 @@ var showAnime = function showAnime(data) {
     data: data
   });
 };
-
+var updateAnime = function updateAnime(data) {
+  return $.ajax({
+    url: config.apiUrl + ('/animes/' + data.anime.id),
+    method: "PATCH",
+    headers: { Authorization: 'Bearer ' + store.user.token },
+    data: data
+  });
+};
 module.exports = {
   signUp: signUp,
   signIn: signIn,
@@ -16750,7 +16766,8 @@ module.exports = {
   signOut: signOut,
   addAnime: addAnime,
   deleteAnime: deleteAnime,
-  showAnime: showAnime
+  showAnime: showAnime,
+  updateAnime: updateAnime
 };
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(47)))
 
@@ -16787,28 +16804,31 @@ module.exports = {
 var store = __webpack_require__(131);
 
 var onSignUpSuccess = function onSignUpSuccess(response) {
-  console.log('YESSSS');
   $('#sign-up-message').text('Thanks for signing up ' + response.user.email);
   $('#sign-up-form').trigger('reset');
+  $('#sign-up-message').show();
 };
 var onSignUpFailure = function onSignUpFailure(error) {
-  console.log('oops');
   $('#sign-up-message').text('Sign up failed try again');
 };
 var onSignInSuccess = function onSignInSuccess(response) {
-  console.log('SIGNED IN');
   store.user = response.user;
   $('#sign-in-message').text('Thanks for signing in ' + response.user.email);
   $('#sign-in-form').trigger('reset');
+  $('#sign-up-message').hide();
   $('#change-password').show();
   $('#sign-out').show();
   $('#add-anime-form').show();
   $('#delete-anime-form').show();
   $('#show-anime').show();
+  $('#edit-anime-form').show();
+  $('#sign-up-form').hide();
+  $('#sign-out-message').hide();
+  $('#sign-in-form').hide();
 };
 var onSignInFailure = function onSignInFailure(error) {
-  console.log('failed sign in try again');
-  $('#sign-in-message').text('Sign up failed try again');
+  $('#sign-in-message').show();
+  $('#sign-in-message').text('Sign in failed try again');
 };
 var onChangePasswordSuccess = function onChangePasswordSuccess(response) {
   $('#change-password-message').text('Password changed!!');
@@ -16818,7 +16838,6 @@ var onChangePasswordFailure = function onChangePasswordFailure(error) {
   $('#change-password-message').text('Password change failed try again!');
 };
 var onSignOutSuccess = function onSignOutSuccess(response) {
-  console.log('signed out');
   $('#sign-out-message').text('Signed out, Please sign in again!');
   $('#sign-out-form').trigger('reset');
   $('#change-password').hide();
@@ -16831,30 +16850,53 @@ var onSignOutSuccess = function onSignOutSuccess(response) {
   $('#add-anime-form').hide();
   $('#delete-anime-form').hide();
   $('#show-anime').hide();
+  $('#sign-up-form').show();
+  $('#edit-anime-form').hide();
+  $('#show-anime-message').hide();
+  $('#add-anime-message').hide();
+  $('#delete-anime-message').hide();
 };
-var onSignOutFailure = function onSignOutFailure(error) {
-  console.log('not signed out');
-};
+var onSignOutFailure = function onSignOutFailure(error) {};
 var onAddAnimeSuccess = function onAddAnimeSuccess(response) {
   $('#add-anime-message').text('Successfully added to anime list!');
-  $('#add-anime').trigger('reset');
+  $('#add-anime-form').trigger('reset');
 };
 var onAddAnimeFailure = function onAddAnimeFailure(error) {
   $('#add-anime-message').text('Failed to add to list, please try again!');
 };
 var onDeleteAnimeSuccess = function onDeleteAnimeSuccess(response) {
   $('#delete-anime-message').text('Successfully removed anime from list!');
-  $('#delete-anime').trigger('reset');
+  $('#delete-anime-form').trigger('reset');
 };
 var onDeleteAnimeFailure = function onDeleteAnimeFailure(error) {
   $('#delete-anime-message').text('Failed to remove from list, please try again!');
 };
 var onShowAnimeSuccess = function onShowAnimeSuccess(response) {
+  //   var arr = response.animes
+  //   var myString = JSON.stringify(arr);
+  // document.getElementById("show-collection").innerHTML = myString;
+  var animes = response.animes;
+  var htmlStr = '';
+  animes.forEach(function (anime) {
+
+    var animeHTML = '\n    <div>\n      <h3>' + anime.title + '</h3>\n      <ul>\n        <li>ID: ' + anime._id + '</li>\n        <li>Title: ' + anime.title + '</li>\n        <li>Translation: ' + anime.translation + '</li>\n        <li>' + anime.genre + '</li>\n        <li>' + anime.episodes + '</li>\n      </ul>\n    </div>\n  ';
+
+    htmlStr += animeHTML;
+  });
+
+  $('#some-div').html(htmlStr);
   $('#show-anime-message').text('Here is a list of all your anime');
   $('#show-anime').trigger('reset');
 };
 var onShowAnimeFailure = function onShowAnimeFailure(error) {
   $('#show-anime-message').text('Failed to get all anime!');
+};
+var onUpdateAnimeSuccess = function onUpdateAnimeSuccess(response) {
+  $('#edit-anime-message').text('Anime successfully updated!');
+  $('#edit-anime-form').trigger('reset');
+};
+var onUpdateAnimeFailure = function onUpdateAnimeFailure(error) {
+  $('#edit-anime-message').text('Anime failed to update.');
 };
 
 module.exports = {
@@ -16869,7 +16911,11 @@ module.exports = {
   onAddAnimeSuccess: onAddAnimeSuccess,
   onAddAnimeFailure: onAddAnimeFailure,
   onShowAnimeSuccess: onShowAnimeSuccess,
-  onShowAnimeFailure: onShowAnimeFailure
+  onShowAnimeFailure: onShowAnimeFailure,
+  onDeleteAnimeSuccess: onDeleteAnimeSuccess,
+  onDeleteAnimeFailure: onDeleteAnimeFailure,
+  onUpdateAnimeSuccess: onUpdateAnimeSuccess,
+  onUpdateAnimeFailure: onUpdateAnimeFailure
 };
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(47)))
 
