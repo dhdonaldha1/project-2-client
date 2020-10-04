@@ -9,7 +9,7 @@ This application is an anime database that allows the user to add, update and de
 <a href="https://git.generalassemb.ly/ga-wdi-boston/full-stack-project/blob/master/requirements.md">Requirements</a>
 
 ## Planning Story
-First I tested the user curl scripts and create, update and destroy curl scripts to see if it shows owner and anime id. Next I set up the user sign in, sign up, sign out and change password in the index.html. After was to add functionality using the API created.  
+First I tested the user curl scripts and create, update and destroy curl scripts to see if it shows owner and anime id. Next I set up the user sign in, sign up, sign out and change password in the index.html. After was to add functionality using the API created. The process to add, view, update and delete anime had a similar setup.  Once I got was able to view the animes added in the console by console logging the data I needed a way to print it in html on the site. This way the user is able to grab the ID of the anime and use it to delete or update the data. With the main functionalities completed and bug fixed, last was to remove console data and hide/show correct feedback messages to user at the correct time when signing in and out multiple times without refreshing.   
 
 ### User Stories
 
@@ -31,7 +31,8 @@ First I tested the user curl scripts and create, update and destroy curl scripts
 
 ### Unsolved Problems
 
-- add unsolved problems here
+- Add a search bar to show single anime from the list.
+- Add ability to delete anime with a click using react rather than having to copy and paste the ID.
 
 ## Images
 
