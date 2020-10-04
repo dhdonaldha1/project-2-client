@@ -13,7 +13,13 @@ First I tested the user curl scripts and create, update and destroy curl scripts
 
 ### User Stories
 
-- As a user I want to
+- As a user I want to sign up for personal anime database.
+- As a user I want to sign in to access personal anime database.
+- As a user I want to be able to change my password.
+- As a user I want to sign out.
+- As a user I want to add to anime database.
+- As a user I want to view all animes added.
+- As a user I want to edit and delete animes from the list.
 
 ### Technologies Used
 
