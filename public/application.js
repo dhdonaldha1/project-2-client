@@ -16540,57 +16540,46 @@ var onSignUp = function onSignUp(event) {
   event.preventDefault();
   var form = event.target;
   var data = getFormFields(form);
-  console.log(data);
   api.signUp(data).then(ui.onSignUpSuccess).catch(ui.onSignUpFailure);
 };
 var onSignIn = function onSignIn(event) {
   event.preventDefault();
   var form = event.target;
   var data = getFormFields(form);
-  console.log(data);
   api.signIn(data).then(ui.onSignInSuccess).catch(ui.onSignInFailure);
 };
 var onChangePassword = function onChangePassword(event) {
   event.preventDefault();
   var form = event.target;
   var data = getFormFields(form);
-  console.log(data);
   api.changePassword(data).then(ui.onChangePasswordSuccess).catch(ui.onChangePasswordFailure);
 };
 var onSignOut = function onSignOut(event) {
   event.preventDefault();
   var form = event.target;
   var data = getFormFields(form);
-  console.log(data);
   api.signOut(data).then(ui.onSignOutSuccess).catch(ui.onSignOutFailure);
 };
 var onAddAnime = function onAddAnime(event) {
   event.preventDefault();
   var form = event.target;
   var data = getFormFields(form);
-  console.log(data);
   api.addAnime(data).then(ui.onAddAnimeSuccess).catch(ui.onAddAnimeFailure);
 };
 var onDeleteAnime = function onDeleteAnime(event) {
   event.preventDefault();
   var form = event.target;
   var data = getFormFields(form);
-  console.log(data.anime.id);
   api.deleteAnime(data.anime.id).then(ui.onDeleteAnimeSuccess).catch(ui.onDeleteAnimeFailure);
 };
 var onShowAnime = function onShowAnime(event) {
   event.preventDefault();
-  // const form = event.target
-  // const data = getFormFields(form)
-  console.log();
   api.showAnime().then(ui.onShowAnimeSuccess).catch(ui.onShowAnimeFailure);
 };
 var onUpdateAnime = function onUpdateAnime(event) {
   event.preventDefault();
   var form = event.target;
   var data = getFormFields(form);
-  console.log(data);
-  // const anime = data.anime
   api.updateAnime(data).then(ui.onUpdateAnimeSuccess).catch(ui.onUpdateAnimeFailure);
 };
 
@@ -16810,6 +16799,8 @@ var onSignUpSuccess = function onSignUpSuccess(response) {
 };
 var onSignUpFailure = function onSignUpFailure(error) {
   $('#sign-up-message').text('Sign up failed try again');
+  $('#sign-up-form').trigger('reset');
+  $('#sign-up-message').show();
 };
 var onSignInSuccess = function onSignInSuccess(response) {
   store.user = response.user;
@@ -16825,19 +16816,25 @@ var onSignInSuccess = function onSignInSuccess(response) {
   $('#sign-up-form').hide();
   $('#sign-out-message').hide();
   $('#sign-in-form').hide();
+  $('#sign-in-message').show();
 };
 var onSignInFailure = function onSignInFailure(error) {
   $('#sign-in-message').show();
+  $('#sign-in-form').trigger('reset');
   $('#sign-in-message').text('Sign in failed try again');
 };
 var onChangePasswordSuccess = function onChangePasswordSuccess(response) {
+  $('#change-password-message').show();
   $('#change-password-message').text('Password changed!!');
   $('#change-password').trigger('reset');
 };
 var onChangePasswordFailure = function onChangePasswordFailure(error) {
+  $('#change-password-message').show();
+  $('#change-password').trigger('reset');
   $('#change-password-message').text('Password change failed try again!');
 };
 var onSignOutSuccess = function onSignOutSuccess(response) {
+  $('#sign-out-message').show();
   $('#sign-out-message').text('Signed out, Please sign in again!');
   $('#sign-out-form').trigger('reset');
   $('#change-password').hide();
@@ -16855,21 +16852,31 @@ var onSignOutSuccess = function onSignOutSuccess(response) {
   $('#show-anime-message').hide();
   $('#add-anime-message').hide();
   $('#delete-anime-message').hide();
+  $('#some-div').hide();
+  $('#edit-anime-message').hide();
 };
-var onSignOutFailure = function onSignOutFailure(error) {};
+var onSignOutFailure = function onSignOutFailure(error) {
+  $('#sign-out-message').show();
+};
 var onAddAnimeSuccess = function onAddAnimeSuccess(response) {
   $('#add-anime-message').text('Successfully added to anime list!');
   $('#add-anime-form').trigger('reset');
+  $('#add-anime-message').show();
 };
 var onAddAnimeFailure = function onAddAnimeFailure(error) {
   $('#add-anime-message').text('Failed to add to list, please try again!');
+  $('#add-anime-form').trigger('reset');
+  $('#add-anime-message').show();
 };
 var onDeleteAnimeSuccess = function onDeleteAnimeSuccess(response) {
   $('#delete-anime-message').text('Successfully removed anime from list!');
   $('#delete-anime-form').trigger('reset');
+  $('#delete-anime-message').show();
 };
 var onDeleteAnimeFailure = function onDeleteAnimeFailure(error) {
   $('#delete-anime-message').text('Failed to remove from list, please try again!');
+  $('#delete-anime-form').trigger('reset');
+  $('#delete-anime-message').show();
 };
 var onShowAnimeSuccess = function onShowAnimeSuccess(response) {
   //   var arr = response.animes
@@ -16885,18 +16892,24 @@ var onShowAnimeSuccess = function onShowAnimeSuccess(response) {
   });
 
   $('#some-div').html(htmlStr);
+  $('#some-div').show();
   $('#show-anime-message').text('Here is a list of all your anime');
   $('#show-anime').trigger('reset');
+  $('#show-anime-message').show();
 };
 var onShowAnimeFailure = function onShowAnimeFailure(error) {
   $('#show-anime-message').text('Failed to get all anime!');
+  $('#show-anime-message').show();
 };
 var onUpdateAnimeSuccess = function onUpdateAnimeSuccess(response) {
   $('#edit-anime-message').text('Anime successfully updated!');
   $('#edit-anime-form').trigger('reset');
+  $('#edit-anime-message').show();
 };
 var onUpdateAnimeFailure = function onUpdateAnimeFailure(error) {
   $('#edit-anime-message').text('Anime failed to update.');
+  $('#edit-anime-form').trigger('reset');
+  $('#edit-anime-message').show();
 };
 
 module.exports = {
