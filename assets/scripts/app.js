@@ -21,4 +21,5 @@ $(() => {
   $('#delete-anime-form').on('submit', authEvents.onDeleteAnime)
   $('#show-anime').on('submit', authEvents.onShowAnime)
   $('#edit-anime-form').on('submit', authEvents.onUpdateAnime)
+  $('#add-review-form').on('submit', authEvents.onAddReview)
 })

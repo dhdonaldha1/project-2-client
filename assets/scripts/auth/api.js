@@ -63,6 +63,14 @@ const updateAnime = function (data) {
     data: data
   })
 }
+const addReview = function (data) {
+  return $.ajax({
+    url: config.apiUrl + '/animes/reviews',
+    method: "POST",
+    headers: {Authorization: 'Bearer ' + store.user.token},
+    data: data
+  })
+}
 module.exports = {
   signUp: signUp,
   signIn: signIn,
@@ -71,5 +79,6 @@ module.exports = {
   addAnime: addAnime,
   deleteAnime: deleteAnime,
   showAnime: showAnime,
-  updateAnime: updateAnime
+  updateAnime: updateAnime,
+  addReview: addReview
 }

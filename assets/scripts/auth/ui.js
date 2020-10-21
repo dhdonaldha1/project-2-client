@@ -87,10 +87,9 @@ const onDeleteAnimeFailure = function(error) {
   $('#delete-anime-message').show()
 }
 const onShowAnimeSuccess = function(response) {
-//   var arr = response.animes
-//   var myString = JSON.stringify(arr);
-// document.getElementById("show-collection").innerHTML = myString;
+  console.log(response)
 const animes = response.animes
+
 let htmlStr = ''
 animes.forEach((anime) => {
 
@@ -103,6 +102,7 @@ animes.forEach((anime) => {
         <li>Translation: ${anime.translation}</li>
         <li>${anime.genre}</li>
         <li>${anime.episodes}</li>
+        <li>${anime.reviews}</li>
       </ul>
     </div>
   `)
@@ -131,6 +131,16 @@ const onUpdateAnimeFailure = function(error) {
   $('#edit-anime-message').show()
 }
 
+const onAddReviewSuccess = function(response) {
+  $('#add-review-message').text('Successfully added a review!')
+  $('#add-review-form').trigger('reset')
+  // $('#add-review-message').show()
+}
+const onAddReviewFailure = function(error) {
+  $('#add-review-message').text('Failed to add review, please try again!')
+  $('#add-review-form').trigger('reset')
+  // $('#add-review-message').show()
+}
 module.exports = {
   onSignUpSuccess,
   onSignUpFailure,
@@ -147,5 +157,7 @@ module.exports = {
   onDeleteAnimeSuccess,
   onDeleteAnimeFailure,
   onUpdateAnimeSuccess,
-  onUpdateAnimeFailure
+  onUpdateAnimeFailure,
+  onAddReviewSuccess,
+  onAddReviewFailure
 }

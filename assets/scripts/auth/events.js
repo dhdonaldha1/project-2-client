@@ -64,7 +64,14 @@ const onUpdateAnime = function (event) {
     .then(ui.onUpdateAnimeSuccess)
     .catch(ui.onUpdateAnimeFailure)
 }
-
+const onAddReview = function (event) {
+  event.preventDefault()
+  const form = event.target
+  const data = getFormFields(form)
+  api.addReview(data)
+    .then(ui.onAddReviewSuccess)
+    .catch(ui.onAddReviewFailure)
+}
 module.exports ={
   onSignUp: onSignUp,
   onSignIn: onSignIn,
@@ -73,5 +80,6 @@ module.exports ={
   onAddAnime: onAddAnime,
   onDeleteAnime: onDeleteAnime,
   onShowAnime: onShowAnime,
-  onUpdateAnime: onUpdateAnime
+  onUpdateAnime: onUpdateAnime,
+  onAddReview: onAddReview
 }
