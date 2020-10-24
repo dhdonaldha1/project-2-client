@@ -13,6 +13,7 @@ $(() => {
   $('#delete-anime-form').hide()
   $('#show-anime').hide()
   $('#edit-anime-form').hide()
+  $('#add-review-form').hide()
   $('#sign-up-form').on('submit', authEvents.onSignUp)
   $('#sign-in-form').on('submit', authEvents.onSignIn)
   $('#change-password').on('submit', authEvents.onChangePassword)

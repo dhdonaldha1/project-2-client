@@ -62,6 +62,8 @@ const onSignOutSuccess = function(response) {
   $('#delete-anime-message').hide()
   $('#some-div').hide()
   $('#edit-anime-message').hide()
+  $('#add-review-form').hide()
+  $('#add-review-message').hide()
 }
 const onSignOutFailure = function(error) {
   $('#sign-out-message').show()
@@ -125,6 +127,7 @@ animes.forEach((anime) => {
   $('#show-anime-message').text('Here is a list of all your anime')
   $('#show-anime').trigger('reset')
   $('#show-anime-message').show()
+  $('#add-review-form').show()
 }
 const onShowAnimeFailure = function(error) {
   $('#show-anime-message').text('Failed to get all anime!')
@@ -144,12 +147,12 @@ const onUpdateAnimeFailure = function(error) {
 const onAddReviewSuccess = function(response) {
   $('#add-review-message').text('Successfully added a review!')
   $('#add-review-form').trigger('reset')
-  // $('#add-review-message').show()
+  $('#add-review-message').show()
 }
 const onAddReviewFailure = function(error) {
   $('#add-review-message').text('Failed to add review, please try again!')
   $('#add-review-form').trigger('reset')
-  // $('#add-review-message').show()
+  $('#add-review-message').show()
 }
 module.exports = {
   onSignUpSuccess,
