@@ -93,19 +93,29 @@ const animes = response.animes
 let htmlStr = ''
 animes.forEach((anime) => {
 
-  const animeHTML = (`
+  let animeHTML = (`
     <div>
       <h3>${anime.title}</h3>
       <ul>
         <li>ID: ${anime._id}</li>
         <li>Title: ${anime.title}</li>
         <li>Translation: ${anime.translation}</li>
-        <li>${anime.genre}</li>
-        <li>${anime.episodes}</li>
-        <li>${anime.reviews}</li>
-      </ul>
-    </div>
-  `)
+        <li>Genre: ${anime.genre}</li>
+        <li>Episodes: ${anime.episodes}</li>
+        <h5>Reviews:</h5>
+        `)
+
+        anime.reviews.forEach((review) => {
+          let reviewHTML = (`
+            <div>
+            <li>Rating: ${review.title}</li>
+            <li>${review.content}</li>
+            </div>
+            `)
+            animeHTML += reviewHTML
+        })
+    animeHTML +=  (`</ul>
+    </div> `)
 
   htmlStr += animeHTML
 })

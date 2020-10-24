@@ -14,7 +14,8 @@ curl "${API}${URL_PATH}" \
       "translation": "'"${TRANSLATION}"'",
       "genre": "'"${GENRE}"'",
       "episodes": "'"${EPISODES}"'",
-      "owner": "'"${OWNER}"'"
+      "owner": "'"${OWNER}"'",
+      "reviews": "'"${REVIEWS}"'"
     }
   }'
 

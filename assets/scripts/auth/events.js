@@ -68,6 +68,7 @@ const onAddReview = function (event) {
   event.preventDefault()
   const form = event.target
   const data = getFormFields(form)
+  data.review.animeId = data.anime.id
   api.addReview(data)
     .then(ui.onAddReviewSuccess)
     .catch(ui.onAddReviewFailure)
