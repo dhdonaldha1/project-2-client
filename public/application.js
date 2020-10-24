@@ -16514,6 +16514,7 @@ $(function () {
   $('#delete-anime-form').hide();
   $('#show-anime').hide();
   $('#edit-anime-form').hide();
+  $('#add-review-form').hide();
   $('#sign-up-form').on('submit', authEvents.onSignUp);
   $('#sign-in-form').on('submit', authEvents.onSignIn);
   $('#change-password').on('submit', authEvents.onChangePassword);
@@ -16522,6 +16523,7 @@ $(function () {
   $('#delete-anime-form').on('submit', authEvents.onDeleteAnime);
   $('#show-anime').on('submit', authEvents.onShowAnime);
   $('#edit-anime-form').on('submit', authEvents.onUpdateAnime);
+  $('#add-review-form').on('submit', authEvents.onAddReview);
 });
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(47)))
 
@@ -16582,7 +16584,13 @@ var onUpdateAnime = function onUpdateAnime(event) {
   var data = getFormFields(form);
   api.updateAnime(data).then(ui.onUpdateAnimeSuccess).catch(ui.onUpdateAnimeFailure);
 };
-
+var onAddReview = function onAddReview(event) {
+  event.preventDefault();
+  var form = event.target;
+  var data = getFormFields(form);
+  data.review.animeId = data.anime.id;
+  api.addReview(data).then(ui.onAddReviewSuccess).catch(ui.onAddReviewFailure);
+};
 module.exports = {
   onSignUp: onSignUp,
   onSignIn: onSignIn,
@@ -16591,7 +16599,8 @@ module.exports = {
   onAddAnime: onAddAnime,
   onDeleteAnime: onDeleteAnime,
   onShowAnime: onShowAnime,
-  onUpdateAnime: onUpdateAnime
+  onUpdateAnime: onUpdateAnime,
+  onAddReview: onAddReview
 };
 
 /***/ }),
@@ -16748,6 +16757,14 @@ var updateAnime = function updateAnime(data) {
     data: data
   });
 };
+var addReview = function addReview(data) {
+  return $.ajax({
+    url: config.apiUrl + '/animes/reviews',
+    method: "POST",
+    headers: { Authorization: 'Bearer ' + store.user.token },
+    data: data
+  });
+};
 module.exports = {
   signUp: signUp,
   signIn: signIn,
@@ -16756,7 +16773,8 @@ module.exports = {
   addAnime: addAnime,
   deleteAnime: deleteAnime,
   showAnime: showAnime,
-  updateAnime: updateAnime
+  updateAnime: updateAnime,
+  addReview: addReview
 };
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(47)))
 
@@ -16854,6 +16872,8 @@ var onSignOutSuccess = function onSignOutSuccess(response) {
   $('#delete-anime-message').hide();
   $('#some-div').hide();
   $('#edit-anime-message').hide();
+  $('#add-review-form').hide();
+  $('#add-review-message').hide();
 };
 var onSignOutFailure = function onSignOutFailure(error) {
   $('#sign-out-message').show();
@@ -16879,14 +16899,19 @@ var onDeleteAnimeFailure = function onDeleteAnimeFailure(error) {
   $('#delete-anime-message').show();
 };
 var onShowAnimeSuccess = function onShowAnimeSuccess(response) {
-  //   var arr = response.animes
-  //   var myString = JSON.stringify(arr);
-  // document.getElementById("show-collection").innerHTML = myString;
+  console.log(response);
   var animes = response.animes;
+
   var htmlStr = '';
   animes.forEach(function (anime) {
 
-    var animeHTML = '\n    <div>\n      <h3>' + anime.title + '</h3>\n      <ul>\n        <li>ID: ' + anime._id + '</li>\n        <li>Title: ' + anime.title + '</li>\n        <li>Translation: ' + anime.translation + '</li>\n        <li>' + anime.genre + '</li>\n        <li>' + anime.episodes + '</li>\n      </ul>\n    </div>\n  ';
+    var animeHTML = '\n    <div>\n      <h3>' + anime.title + '</h3>\n      <ul>\n        <li>ID: ' + anime._id + '</li>\n        <li>Title: ' + anime.title + '</li>\n        <li>Translation: ' + anime.translation + '</li>\n        <li>Genre: ' + anime.genre + '</li>\n        <li>Episodes: ' + anime.episodes + '</li>\n        <h5>Reviews:</h5>\n        ';
+
+    anime.reviews.forEach(function (review) {
+      var reviewHTML = '\n            <div>\n            <li>Rating: ' + review.title + '</li>\n            <li>' + review.content + '</li>\n            </div>\n            ';
+      animeHTML += reviewHTML;
+    });
+    animeHTML += '</ul>\n    </div> ';
 
     htmlStr += animeHTML;
   });
@@ -16896,6 +16921,7 @@ var onShowAnimeSuccess = function onShowAnimeSuccess(response) {
   $('#show-anime-message').text('Here is a list of all your anime');
   $('#show-anime').trigger('reset');
   $('#show-anime-message').show();
+  $('#add-review-form').show();
 };
 var onShowAnimeFailure = function onShowAnimeFailure(error) {
   $('#show-anime-message').text('Failed to get all anime!');
@@ -16912,6 +16938,16 @@ var onUpdateAnimeFailure = function onUpdateAnimeFailure(error) {
   $('#edit-anime-message').show();
 };
 
+var onAddReviewSuccess = function onAddReviewSuccess(response) {
+  $('#add-review-message').text('Successfully added a review!');
+  $('#add-review-form').trigger('reset');
+  $('#add-review-message').show();
+};
+var onAddReviewFailure = function onAddReviewFailure(error) {
+  $('#add-review-message').text('Failed to add review, please try again!');
+  $('#add-review-form').trigger('reset');
+  $('#add-review-message').show();
+};
 module.exports = {
   onSignUpSuccess: onSignUpSuccess,
   onSignUpFailure: onSignUpFailure,
@@ -16928,7 +16964,9 @@ module.exports = {
   onDeleteAnimeSuccess: onDeleteAnimeSuccess,
   onDeleteAnimeFailure: onDeleteAnimeFailure,
   onUpdateAnimeSuccess: onUpdateAnimeSuccess,
-  onUpdateAnimeFailure: onUpdateAnimeFailure
+  onUpdateAnimeFailure: onUpdateAnimeFailure,
+  onAddReviewSuccess: onAddReviewSuccess,
+  onAddReviewFailure: onAddReviewFailure
 };
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(47)))
 
